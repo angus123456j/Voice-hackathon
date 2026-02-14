@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings, setup_logging
-from app.routes import electron, health, hydra, lightning, parse, pulse
+from app.routes import electron, health, hydra, lightning, parse, pulse, slides
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -48,5 +48,6 @@ app.include_router(parse.router)
 app.include_router(electron.router)
 app.include_router(lightning.router)
 app.include_router(hydra.router)
+app.include_router(slides.router)
 
 logger.info("PocketProf backend started — env=%s, port=%s", settings.APP_ENV, settings.PORT)
