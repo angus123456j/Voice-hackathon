@@ -12,8 +12,8 @@ class Settings(BaseSettings):
     )
 
     SMALLEST_API_KEY: str
-    GOOGLE_API_KEY: str | None = None
     SMALLEST_VOICE_ID: str | None = "sophia"
+    GEMINI_API_KEY: str
 
     APP_ENV: str = "development"
     PORT: int = 8000
