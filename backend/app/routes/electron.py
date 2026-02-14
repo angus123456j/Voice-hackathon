@@ -10,3 +10,4 @@ router = APIRouter(prefix="/electron", tags=["Electron"])
 async def electron_format(payload: dict) -> ServiceResponse:
     """Format content through the Electron pipeline."""
     return await format_electron(payload)
+
