@@ -1,0 +1,11 @@
+{
+    "ignore": [
+        "../.next/*",
+        "../out/*",
+        "../node_modules/*",
+        "uploads/*",
+        "temp/*",
+        "public/*"
+    ],
+    "delay": "1000"
+}

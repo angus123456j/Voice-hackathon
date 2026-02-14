@@ -1,0 +1,46 @@
+{
+    "name": "pocketprof",
+    "version": "1.0.0",
+    "description": "ProfReplay AI - Interactive Lecture Tutor",
+    "deployment": {
+        "type": "fullstack",
+        "framework": "nextjs",
+        "backend": "node"
+    },
+    "build": {
+        "frontend": {
+            "command": "npm install && npm run build",
+            "outputDir": ".next",
+            "staticDir": "public"
+        },
+        "backend": {
+            "command": "cd backend && npm install",
+            "startCommand": "node backend/server.js"
+        }
+    },
+    "env": {
+        "required": [
+            "OPENAI_API_KEY",
+            "PORT"
+        ],
+        "optional": [
+            "SMALLEST_PULSE_API_KEY",
+            "SMALLEST_LIGHTNING_API_KEY",
+            "ELEVENLABS_API_KEY",
+            "ELEVENLABS_VOICE_ID",
+            "OPENAI_COMPUTER_USE_API_KEY"
+        ]
+    },
+    "ports": {
+        "frontend": 3000,
+        "backend": 3001
+    },
+    "healthCheck": {
+        "path": "/api/health",
+        "port": 3001
+    },
+    "resources": {
+        "memory": "2GB",
+        "cpu": "2"
+    }
+}
