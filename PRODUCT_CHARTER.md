@@ -40,7 +40,7 @@ ProfReplay AI turns a lecture into an interactive, contextual tutor experience.
 The MVP includes:
 
 1. MP3 lecture upload
-2. Transcript generation using Smallest.ai Pulse
+2. Transcript generation using Smallest.ai Pulse and Lightning
 3. Conversion of transcript into structured LaTeX knowledge
 4. Slide deck upload (PDF/PPT)
 5. AI tutor initialized using lecture-derived context
