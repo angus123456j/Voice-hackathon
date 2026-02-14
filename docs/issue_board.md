@@ -91,7 +91,7 @@ Deliverable: Real-time voice-based Q&A
 ## 6. Frontend Setup
 Owner: Open  
 Status: [ ]
-
+- [ ] Using next.js
 - [ ] Initialize React project
 - [ ] Setup TailwindCSS
 - [ ] Create layout structure
