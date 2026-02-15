@@ -72,14 +72,20 @@ function Stage() {
 }
 
 const characters = [
-    { id: 1, name: 'Prof. Sterling', file: '/character-1.glb', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: 'P' },
-    { id: 2, name: 'Dr. Elara', file: '/character-2.glb', color: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)', label: 'D' },
-    { id: 3, name: 'Sage', file: '/character-3.glb', color: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)', label: 'S' },
-    { id: 4, name: 'Aris', file: '/character-4.glb', color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: 'A' },
+    { id: 1, name: 'Sophia', voiceId: 'sophia', file: '/character-1.glb', color: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)', label: 'S' },
+    { id: 2, name: 'Rachel', voiceId: 'rachel', file: '/character-2.glb', color: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)', label: 'R' },
+    { id: 3, name: 'Jordan', voiceId: 'jordan', file: '/character-3.glb', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: 'J' },
+    { id: 4, name: 'Arjun', voiceId: 'arjun', file: '/character-4.glb', color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: 'A' },
 ];
 
-export default function CharacterScene() {
+export default function CharacterScene({ onVoiceSelect }) {
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        if (onVoiceSelect) {
+            onVoiceSelect(characters[currentIndex].voiceId);
+        }
+    }, [currentIndex, onVoiceSelect]);
 
     const nextCharacter = () => {
         setCurrentIndex((prev) => (prev + 1) % characters.length);
