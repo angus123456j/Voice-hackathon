@@ -1,188 +1,122 @@
-# Hackathon Issue Board
-AI Voice Learning Engine
+# PocketProf — Issue Board
 
 ---
 
 ## Legend
 
-- [ ] Not Started
-- [~] In Progress
-- [x] Completed
+- [ ] Not started
+- [~] In progress
+- [x] Done
 
 ---
 
-# Phase 1 — Core Backend Infrastructure
+# Phase 1 — Backend core
 
-## 1. Backend Project Setup
-Owner: Angus  
-Status: [ ]
+## 1. Backend setup
+Status: [x]
 
-- [ ] Initialize FastAPI project
-- [ ] Setup environment variables
-- [ ] Configure API key management
-- [ ] Create base routing structure
-- [ ] Add basic health-check endpoint
+- [x] FastAPI project
+- [x] Environment / config
+- [x] Base routing
+- [x] Health check (`/health`)
 
 ---
 
-## 2. Pulse STT Streaming Integration
-Owner: Angus  
-Status: [ ]
+## 2. Pulse STT
+Status: [x]
 
-- [ ] Implement microphone audio streaming pipeline
-- [ ] Connect to Pulse STT API
-- [ ] Handle streaming transcription responses
-- [ ] Return transcript to frontend in real time
-- [ ] Handle disconnect/reconnect edge cases
-
-Deliverable: Real-time transcript visible on frontend
+- [x] File upload transcription (`/pulse/transcribe`)
+- [x] Live streaming WebSocket (`/pulse/live`)
+- [x] Transcript returned to frontend
 
 ---
 
-## 3. Electron LaTeX Formatting Pipeline
-Owner: Angus  
-Status: [ ]
+## 3. Parse (transcript → notes)
+Status: [x]
 
-- [ ] Design structured lecture formatting prompt
-- [ ] Remove filler words
-- [ ] Convert transcript to structured format
-- [ ] Convert structured output to LaTeX-ready format
-- [ ] Validate LaTeX formatting consistency
-
-Deliverable: Clean LaTeX lecture output from transcript
+- [x] Parse API (`/parse`)
+- [x] Clean and structure transcript
+- [x] Return formatted text (no LaTeX in main flow)
 
 ---
 
-# Phase 2 — Voice Output Layer
+# Phase 2 — Voice output
 
-## 4. Lightning v3.1 TTS Integration
-Owner: Mo  
-Status: [ ]
+## 4. Lightning TTS
+Status: [x]
 
-- [ ] Connect to Lightning v3.1 API
-- [ ] Convert LaTeX content to readable text
-- [ ] Generate spoken lecture audio
-- [ ] Stream audio playback to frontend
-- [ ] Test latency and audio quality
-
-Deliverable: AI-generated lecture playback
+- [x] Lightning stream integration (`/lightning/stream`)
+- [x] Text → speech for lesson and Q&A answers
+- [x] Frontend playback and voice selection (e.g. Sophia, Rachel, Jordan, Arjun)
+- [x] Voice sample on homepage per character
 
 ---
 
-# Phase 3 — Conversational Layer
+# Phase 3 — Slides and Q&A
 
-## 5. Hydra Voice Q&A Integration
-Owners: Mo + Kevin  
-Status: [ ]
+## 5. Ask (slides + Q&A)
+Status: [x]
 
-- [ ] Initialize Hydra session
-- [ ] Implement speech-to-speech interaction
-- [ ] Maintain session memory
-- [ ] Enable questions about lecture content
-- [ ] Handle interruption or overlapping speech
-- [ ] Test conversation stability
-
-Deliverable: Real-time voice-based Q&A
+- [x] Slide analysis (`/ask/analyze`)
+- [x] Script alignment to slides (`/ask/align`)
+- [x] Q&A endpoint (`/ask`) with context
+- [x] Voice Ask flow: record → transcribe → Ask → TTS response
 
 ---
 
 # Phase 4 — Frontend
 
-## 6. Frontend Setup
-Owner: Open  
-Status: [ ]
-- [ ] Using next.js
-- [ ] Initialize React project
-- [ ] Setup TailwindCSS
-- [ ] Create layout structure
-- [ ] Implement state management
+## 6. Frontend stack
+Status: [x]
+
+- [x] React + Vite 
+- [x] Custom CSS 
+- [x] Single-page app with Home / Lab / Slide Player views
 
 ---
 
-## 7. Live Transcript UI
-Owner: Open  
-Status: [ ]
+## 7. Homepage
+Status: [x]
 
-- [ ] Microphone start/stop button
-- [ ] Real-time transcript display
-- [ ] Loading indicators
-- [ ] Error state handling
-
----
-
-## 8. Structured Notes Panel
-Owner: Open  
-Status: [ ]
-
-- [ ] Display formatted LaTeX
-- [ ] Render LaTeX properly
-- [ ] Scrollable content area
+- [x] Branding (PocketProf, logo, favicon)
+- [x] Hero + CTA
+- [x] Character/voice picker (3D + thumbnails)
+- [x] Play voice sample per character
+- [x] Sponsor strip (infinite scroll)
+- [x] Footer
 
 ---
 
-## 9. Audio Playback Controls
-Owner: Open  
-Status: [ ]
+## 8. Lab
+Status: [x]
 
-- [ ] Play button
-- [ ] Stop button
-- [ ] Loading state
-- [ ] Audio buffering handling
-
----
-
-## 10. Voice Q&A Interface
-Owner: Open  
-Status: [ ]
-
-- [ ] Q&A microphone mode
-- [ ] Display conversational transcript
-- [ ] Response playback handling
+- [x] Section 1: Upload MP3 or record live
+- [x] Results: Parse button, polished transcript, Download .txt
+- [x] Result overlay after parse (transcript + download, no cut-off)
+- [x] Section 2: PDF slides upload, View Slides
 
 ---
 
-# Phase 5 — Final Integration & Testing
+## 9. Slide Player
+Status: [x]
 
-## 11. End-to-End Pipeline Test
-Owner: All  
-Status: [ ]
+- [x] Slides + notes view
+- [x] Import notes / start TTS
+- [x] Play / Pause
+- [x] Ask: voice input → answer TTS
+- [x] Slide sync with playback (when alignment used)
 
-- [ ] Speech → Transcript → LaTeX → Audio
-- [ ] Voice Q&A functional
-- [ ] Frontend stable
-- [ ] No breaking errors
-
----
-
-## 12. Latency Optimization
-Owner: All  
-Status: [ ]
-
-- [ ] Measure STT latency
-- [ ] Measure Electron processing time
-- [ ] Measure TTS latency
-- [ ] Optimize where possible
 
 ---
 
-## 13. Demo Preparation
-Owner: All  
-Status: [ ]
+# MVP summary
 
-- [ ] Prepare demo script
-- [ ] Prepare fallback plan
-- [ ] Test WiFi robustness
-- [ ] Prepare backup recording
-- [ ] Clean UI polish
+Shipped:
 
----
+- Lecture input (upload or live) → transcript.
+- Parse → polished notes → download.
+- PDF slides → Slide Player.
+- TTS playback with voice choice and voice sample.
+- Voice Ask with TTS answers.
+- Clean, working UI (Home, Lab, Slide Player, result overlay).
 
-# MVP Definition
-
-Minimum viable demo must include:
-
-- Live speech-to-text transcription
-- Transcript formatted into LaTeX
-- AI lecture playback
-- Real-time voice Q&A
-- Clean working UI
