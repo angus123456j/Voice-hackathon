@@ -78,14 +78,26 @@ export const characters = [
     { id: 4, name: 'Arjun', voiceId: 'arjun', file: '/character-4.glb', color: '#fff', label: 'A' },
 ];
 
-export default function CharacterScene({ onVoiceSelect }) {
+export default function CharacterScene({ onVoiceSelect, onPlaySample }) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [samplePlaying, setSamplePlaying] = useState(false);
 
     useEffect(() => {
         if (onVoiceSelect) {
             onVoiceSelect(characters[currentIndex].voiceId);
         }
     }, [currentIndex, onVoiceSelect]);
+
+    const handlePlaySample = async () => {
+        if (!onPlaySample || samplePlaying) return;
+        const char = characters[currentIndex];
+        setSamplePlaying(true);
+        try {
+            await onPlaySample(char.voiceId, char.name);
+        } finally {
+            setSamplePlaying(false);
+        }
+    };
 
     const nextCharacter = () => {
         setCurrentIndex((prev) => (prev + 1) % characters.length);
@@ -156,6 +168,19 @@ export default function CharacterScene({ onVoiceSelect }) {
                         </div>
                     ))}
                 </div>
+                <button
+                    type="button"
+                    className="character-sample-btn"
+                    onClick={handlePlaySample}
+                    disabled={!onPlaySample || samplePlaying}
+                    aria-label={`Play voice sample for ${characters[currentIndex].name}`}
+                >
+                    {samplePlaying ? (
+                        <>Playing…</>
+                    ) : (
+                        <>▶ Play sample</>
+                    )}
+                </button>
             </div>
         </div>
     );
