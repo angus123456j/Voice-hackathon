@@ -47,6 +47,7 @@ function App() {
   const [askQuestionText, setAskQuestionText] = useState("");
   const [askStatus, setAskStatus] = useState("idle"); // idle | recording | transcribing | loading | speaking
   const [askRecording, setAskRecording] = useState(false);
+  const [selectedVoiceId, setSelectedVoiceId] = useState("sophia");
 
   const askRecorderRef = useRef(null);
   const askChunksRef = useRef([]);
@@ -355,6 +356,11 @@ function App() {
     }
   };
 
+  const handleVoiceSelect = useCallback((voiceId) => {
+    console.log("App: Voice selected:", voiceId);
+    setSelectedVoiceId(voiceId);
+  }, []);
+
   // ── Import downloaded text (slide player) ─────────────────────────
   const handleImportedTxt = useCallback((e) => {
     const file = e?.target?.files?.[0];
@@ -402,7 +408,7 @@ function App() {
         const res = await fetch(`${API_BASE}/lightning/stream`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ latex_summary: text, anchors_enabled: false }),
+          body: JSON.stringify({ latex_summary: text, anchors_enabled: false, voice_id: selectedVoiceId }),
         });
         if (!res.ok) throw new Error("TTS failed");
         const pcmBuffer = await res.arrayBuffer();
@@ -686,7 +692,7 @@ function App() {
       const ttsRes = await fetch(`${API_BASE}/lightning/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ latex_summary: answer, anchors_enabled: false }),
+        body: JSON.stringify({ latex_summary: answer, anchors_enabled: false, voice_id: selectedVoiceId }),
       });
       if (!ttsRes.ok) throw new Error("TTS failed");
       const pcmBuffer = await ttsRes.arrayBuffer();
@@ -890,7 +896,7 @@ function App() {
               <p className="home-cta-small">Students and educators use PocketProf to turn lecture chaos into clarity.</p>
             </div>
             <div className="home-hero-right">
-              <CharacterScene />
+              <CharacterScene onVoiceSelect={handleVoiceSelect} />
             </div>
           </section>
 
