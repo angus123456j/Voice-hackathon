@@ -367,6 +367,27 @@ function App() {
     setSelectedVoiceId(voiceId);
   }, []);
 
+  const playVoiceSample = useCallback(async (voiceId, name) => {
+    const text = `Hi, I'm ${name}, pleasure to be your professor today.`;
+    try {
+      const res = await fetch(`${API_BASE}/lightning/stream`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ latex_summary: text, anchors_enabled: false, voice_id: voiceId }),
+      });
+      if (!res.ok) throw new Error("Sample failed");
+      const pcmBuffer = await res.arrayBuffer();
+      const wavBlob = pcmToWavBlob(pcmBuffer, 24000);
+      const url = URL.createObjectURL(wavBlob);
+      const audio = new Audio(url);
+      audio.onended = () => URL.revokeObjectURL(url);
+      audio.onerror = () => URL.revokeObjectURL(url);
+      await audio.play();
+    } catch (err) {
+      console.error("Voice sample error:", err);
+    }
+  }, []);
+
   // ── Import downloaded text (slide player) ─────────────────────────
   const handleImportedTxt = useCallback((e) => {
     const file = e?.target?.files?.[0];
@@ -927,7 +948,7 @@ function App() {
               <p className="home-cta-small">Students and educators use PocketProf to turn lecture chaos into clarity.</p>
             </div>
             <div className="home-hero-right">
-              <CharacterScene onVoiceSelect={handleVoiceSelect} />
+              <CharacterScene onVoiceSelect={handleVoiceSelect} onPlaySample={playVoiceSample} />
             </div>
           </section>
 
